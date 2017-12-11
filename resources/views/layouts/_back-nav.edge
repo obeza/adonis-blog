@@ -1,0 +1,13 @@
+@layout('layouts.app')
+
+@section('content')
+  <div class="row">
+    <div class="col-lg-2 backoffice-nav">
+      One of three columns
+    </div>
+    <div class="col-lg-10">
+      @!section('back')
+    </div>
+  </div>
+@endsection
+
