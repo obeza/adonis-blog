@@ -1,7 +1,35 @@
-@layout('layouts._back-nav')
+@layout('layouts.back') 
 
-@section('back')
-  <h1>hello from form invitation</h1>
+@section('content')
+
+<div class="card">
+  <div class="card-body">
+    <p class="card-text">
+      <a href="{{ route('InvitationController.index') }}">
+        <img src="{{ assetsUrl('images/ic_arrow_back_black_24dp_2x.png') }}" width="24px"/>
+      </a>
+    </p>
+    <h4 class="card-title">Invite user</h4>
+    <p class="card-text">
+      <form action="{{ route('InvitationController.store') }}" method="post">
+        {{ csrfField() }}
+        <div class="form-group">
+          <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" name="email"
+            required>
+          <small id="emailHelp" class="form-text text-muted">User will receive an invitation and will complete his subscription with his informations.</small>
+        </div>
+        <div class="form-group">
+          <select class="form-control" name="roles_id">
+            @each(role in roles)
+            <option value="{{ role.id }}">{{ role.role }}</option>
+            @endeach
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">Send invitation</button>
+      </form>
+    </p>
+  </div>
+</div>
+
+
 @endsection
-
-

@@ -1,1 +1,39 @@
-<h1>hello from invitation index</h1>
+@layout('layouts.back') 
+
+@section('content')
+
+@include('partials.flashMessage')
+
+<div class="card">
+  <div class="card-body">
+
+    @include('pages.backoffice.user._navTabs')
+
+    <h4 class="card-title">Invitations</h4>
+    
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">email</th>
+          <th scope="col">action</th>
+        </tr>
+      </thead>
+      <tbody>
+      @each( invitation in invitations )
+        <tr>
+          <td>{{ invitation.email }}</td>
+          <td>
+          <form action="/backoffice/invitation/{{ invitation.id }}?_method=DELETE" method="POST">    
+            {{ csrfField() }}
+            <button type="submit" class="btn btn-secondary btn-sm btn-outline-danger">remove</button>
+          </form>
+          </td>
+        </tr>
+      @endeach
+      </tbody>
+    </table>
+    <a href="{{ route('InvitationController.create') }}" class="btn btn-primary btn-sm">Invite user</a>
+  </div>
+</div>
+
+@endsection

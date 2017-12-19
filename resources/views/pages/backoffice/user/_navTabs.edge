@@ -1,0 +1,28 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link 
+      @if(url==route('UserController.index'))
+        active
+      @endif
+    " href="
+    @if(url==route('UserController.index'))
+      #
+    @else
+      {{ route('UserController.index') }}
+    @endif
+    ">Users</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link 
+      @if(url==route('InvitationController.index'))
+        active
+      @endif
+    " href="
+    @if(url==route('InvitationController.index'))
+      #
+    @else
+      {{ route('InvitationController.index') }}
+    @endif
+    ">Invitations</a>
+  </li>
+</ul>

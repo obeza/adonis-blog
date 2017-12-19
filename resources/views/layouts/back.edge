@@ -12,8 +12,18 @@
   </head>
   <body>
   @include('layouts._nav')
-  <div class="container">
-    @!section('content')
+  <div class="container backoffice">
+    <div class="row">
+    <div class="col-lg-2 backoffice-nav">
+      @include('layouts._side-menu')
+    </div>
+    <div class="col-lg-10 backoffice-container">
+      <div class="backoffice-content">
+        @!section('content')
+      </div>
+    </div>
+  </div>
+    
   </div>
   @include('layouts._javascript')
 
