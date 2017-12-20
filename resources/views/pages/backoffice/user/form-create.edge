@@ -1,0 +1,40 @@
+@layout('layouts.back') 
+
+@section('content')
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Add user!</h4>
+    <p class="card-text">
+      <form action="{{ route('UserController.store') }}" method="post">
+        {{ csrfField() }}
+        <input type="hidden" name="token" value="{{ token }}">
+        <div class="form-group">
+          <label for="inputFirstName">Firstname</label>
+          <input type="text" class="form-control" id="inputFirstName" placeholder="Enter your firstname" name="firstname" required>
+          {{ elIf('<span>$self</span>', getErrorFor('firstname'), hasErrorFor('firstname')) }}      
+        </div>
+        <div class="form-group">
+          <label for="inputNom">Lastname</label>
+          <input type="text" class="form-control" id="inputNom" placeholder="Enter your lastname" name="lastname" required>  
+          {{ elIf('<span>$self</span>', getErrorFor('lastname'), hasErrorFor('lastname')) }}       
+        </div>
+        <div class="form-group">
+          <label for="inputPassword">Password</label>
+          <input type="password" class="form-control" id="inputPassword" placeholder="Enter your password" name="password" required>   
+          {{ elIf('<span>$self</span>', getErrorFor('password'), hasErrorFor('password')) }} 
+        </div>
+        <div class="form-group">
+          <label for="inputPassword2">Verify your password</label>
+          <input type="password" class="form-control" id="inputPassword2" placeholder="Rewrite your password" name="password_confirm" required>   
+          {{ elIf('<span>$self</span>', getErrorFor('password_confirm'), hasErrorFor('password_confirm')) }} 
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm">Finalize my accompte</button>
+      </form>
+    </p>
+  </div>
+</div>
+
+
+@endsection

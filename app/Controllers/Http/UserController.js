@@ -10,18 +10,20 @@ class UserController {
     return view.render('pages.backoffice.user.index')
   }
 
-  async create ( { view } ) {
+  async create ( { view, request } ) {
     let roles = await Role.all()
     
-    return view.render('pages.backoffice.user.form', {
-      roles: roles.toJSON()
+    let data = request.get()
+
+    return view.render('pages.backoffice.user.form-create', {
+      token: data.token
     })
 
   }
 
   async store ({ request, session, response }) {
 
-/*     let user = new User()
+    /*  let user = new User()
     user.firstname = request.firstname
     user.lastname = request.lastname
     user.email = request.email

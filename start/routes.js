@@ -18,7 +18,9 @@ const Route = use('Route')
 Route.on('/').render('welcome')
 
 Route.resource('/backoffice/user', 'UserController')
+  .validator([[['/backoffice/user.store'], 'User']])
 //.middleware(['auth'])
 
 Route.resource('/backoffice/invitation', 'InvitationController')
   .validator([[['/backoffice/invitation.store'], 'InvitationStore']])
+

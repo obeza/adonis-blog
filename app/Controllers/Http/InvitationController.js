@@ -57,11 +57,7 @@ class InvitationController {
 
   }
 
-  async edit({ view, params }) {
-
-      return params.id
-
-  }
+  async edit({ view, params }) {}
 
   async update() {}
 
