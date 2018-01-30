@@ -5,10 +5,11 @@ const Mail = use('Mail')
 
 const Role = use('App/Models/Role')
 const Invitation = use('App/Models/Invitation')
+const { validate } = use('Validator')
 
 class InvitationController {
-  async index({ view }) {
-
+  async index({ view, session }) {
+    
     // call invitations rom db
     let invitations = await Invitation.all()
 
@@ -29,16 +30,27 @@ class InvitationController {
 
   async store({ request, session, response }) {
 
+/*     const rules = { 
+      email: 'required|email|unique:email',
+      roles_id: 'required' 
+    }
+    const validation = await validate(request.all(), rules)
+
+    if (validation.fails()) {
+      session.withErrors(validation.messages()).flashAll()
+      return response.redirect('back')
+    } */
+
     // générer le token
     let token = randtoken.generate(250)
     
     // save in db
     let data = request.only(['email', 'roles_id'])
     data.token = token
-    let invitation = await Invitation.create(data)
+    // let invitation = await Invitation.create(data)
 
     // envoyer le mail d'invitation
-    /* await Mail.send('pages.backoffice.invitation.email', invitation.toJSON(), (message) => {
+/*     await Mail.send('pages.backoffice.invitation.email', invitation.toJSON(), (message) => {
       message
         .to(invitation.email)
         .from('info@memundo.com')
@@ -47,10 +59,17 @@ class InvitationController {
 
     // préparer le message pour la page liste invitation
     session.flash({ notification: 'You have been redirected back' })
+/*     session.flash({ 
+      alert: {
+        title : "test",
+        msg : "L'invitation a été envoyée.",
+        style : "alert-danger"
+      }
+    }) */
 
     // renvoyer vers la page d'invitation
-    response.route('InvitationController.index')
-
+    //response.route('InvitationController.index')
+    response.redirect('/backoffice/invitation')
   }
 
   async show({ request, session, response }) {
@@ -65,9 +84,10 @@ class InvitationController {
     const invitation = await Invitation.find(params.id)
     await invitation.delete()
 
-    session.flash({ notification: 'Task deleted!' })
+    session.flash({ notification: "l'invitation a été supprimée." })
     return response.redirect('/backoffice/invitation')
   }
+
 }
 
 module.exports = InvitationController

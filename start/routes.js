@@ -23,4 +23,11 @@ Route.resource('/backoffice/user', 'UserController')
 
 Route.resource('/backoffice/invitation', 'InvitationController')
   .validator([[['/backoffice/invitation.store'], 'InvitationStore']])
+// une url pour gérer le delete avec get
+Route.get('/backoffice/invitation/delete/:id', 'InvitationController.destroy')
 
+// page de bienvenue pour le nouvel utilisateur
+Route.get('welcome/:firstname', 'WelcomeController.index')
+
+Route.get('/backoffice/login', 'AuthController.show')
+Route.post('/backoffice/login', 'AuthController.check')

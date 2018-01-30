@@ -2,8 +2,6 @@
 
 @section('content')
 
-@include('partials.flashMessage')
-
 <div class="card">
   <div class="card-body">
 
@@ -22,11 +20,16 @@
       @each( invitation in invitations )
         <tr>
           <td>{{ invitation.email }}</td>
-          <td>
-          <form action="/backoffice/invitation/{{ invitation.id }}?_method=DELETE" method="POST">    
-            {{ csrfField() }}
-            <button type="submit" class="btn btn-secondary btn-sm btn-outline-danger">remove</button>
-          </form>
+          <td>         
+          <button 
+            type="button" 
+            class="btn btn-link" 
+            data-toggle="modal" 
+            data-target="#componentModal"
+            onclick="modalModule.set( {{ invitation.id }} )" 
+          >
+            <i class="material-icons">remove_circle</i>
+          </button>
           </td>
         </tr>
       @endeach
@@ -35,5 +38,12 @@
     <a href="{{ route('InvitationController.create') }}" class="btn btn-primary btn-sm">Invite user</a>
   </div>
 </div>
+
+@!component('components.modal', {
+  titre :'Supprimer',
+  body : 'Etes-vous sur de vouloir supprimer cette invitation ?',
+  action : 'Supprimer',
+  url: '`/backoffice/invitation/delete/${id}`'
+})
 
 @endsection

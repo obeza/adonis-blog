@@ -5,8 +5,10 @@ class User {
     return {
       firstname: 'required',
       lastname: 'required',
-      password  : 'required|min:6|max:30',
-      password_confirm: 'same:password'
+      password  : 'required|min:8|max:30',
+      password_confirm: 'same:password',
+      token: 'exists:invitations,token',
+      email: 'exists:invitations,email'
     }
   }
 }

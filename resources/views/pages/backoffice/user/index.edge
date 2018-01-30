@@ -8,11 +8,35 @@
 
       <h4 class="card-title">User list</h4>
       <p class="card-text">
+      
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Email</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
 
+          @each( user in users.data )
+            <tr>
+              <th scope="row">{{ user.firstname }}</th>
+              <td>{{ user.lastname }}</td>
+              <td>{{ user.email }}</td>
+              <td><a class="btn btn-secondary btn-sm" href="{{ route('UserController.edit', { id : user.id }) }}" role="button">edit</a></td>
+            </tr>
+          @endeach
+          
+          </tbody>
+        </table>
+
+        <div>Total page : {{ users.total }} </div>
       </p>
     </div>
   </div>
-The request URL is {{ url }}
+
 @endsection
 
 

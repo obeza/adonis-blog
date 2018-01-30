@@ -1,22 +1,23 @@
-@layout('layouts.back') 
+@layout('layouts.invitation') 
 
 @section('content')
 
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title">Add user!</h4>
+    <h4 class="card-title">Register</h4>
     <p class="card-text">
       <form action="{{ route('UserController.store') }}" method="post">
         {{ csrfField() }}
-        <input type="hidden" name="token" value="{{ token }}">
+        <input type="hidden" name="token" value="{{ data.token }}">
+        <input type="hidden" name="email" value="{{ data.email }}">
         <div class="form-group">
           <label for="inputFirstName">Firstname</label>
-          <input type="text" class="form-control" id="inputFirstName" placeholder="Enter your firstname" name="firstname" required>
+          <input type="text" class="form-control" id="inputFirstName" placeholder="Enter your firstname" name="firstname" required value="{{ old('firstname','') }}">
           {{ elIf('<span>$self</span>', getErrorFor('firstname'), hasErrorFor('firstname')) }}      
         </div>
         <div class="form-group">
           <label for="inputNom">Lastname</label>
-          <input type="text" class="form-control" id="inputNom" placeholder="Enter your lastname" name="lastname" required>  
+          <input type="text" class="form-control" id="inputNom" placeholder="Enter your lastname" name="lastname" required value="{{ old('lastname','') }}">  
           {{ elIf('<span>$self</span>', getErrorFor('lastname'), hasErrorFor('lastname')) }}       
         </div>
         <div class="form-group">
@@ -29,6 +30,9 @@
           <input type="password" class="form-control" id="inputPassword2" placeholder="Rewrite your password" name="password_confirm" required>   
           {{ elIf('<span>$self</span>', getErrorFor('password_confirm'), hasErrorFor('password_confirm')) }} 
         </div>
+
+        {{ elIf('<span>$self</span>', getErrorFor('token'), hasErrorFor('token')) }} 
+        {{ elIf('<span>$self</span>', getErrorFor('email'), hasErrorFor('email')) }} 
 
         <button type="submit" class="btn btn-primary btn-sm">Finalize my accompte</button>
       </form>
